@@ -120,6 +120,7 @@ public class SendBirdMessagingActivity extends FragmentActivity {
     private MessagingChannel mMessagingChannel;
     private Bundle mSendBirdInfo;
 
+    private static View inputForm;
 
     private boolean isUploading;
     private boolean isForeground;
@@ -465,9 +466,15 @@ public class SendBirdMessagingActivity extends FragmentActivity {
         });
     }
 
+    private static boolean noChat = false;
+
     private void updateMessagingChannel(MessagingChannel messagingChannel) {
         mMessagingChannel = messagingChannel;
         mTxtChannelUrl.setText(getDisplayMemberNames(messagingChannel.getMembers()));
+        if (!SendBirdMessagingChannelListActivity.user_role.equals("dinas k") && getDisplayMemberNames(messagingChannel.getMembers()).split(" - ")[0].equals("dinas k")) {
+            noChat = true;
+            inputForm.setVisibility(View.GONE);
+        }
 
         Hashtable<String, Long> readStatus = new Hashtable<String, Long>();
         for (MessagingChannel.Member member : messagingChannel.getMembers()) {
@@ -570,6 +577,10 @@ public class SendBirdMessagingActivity extends FragmentActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.sendbird_fragment_messaging, container, false);
+            if (noChat) {
+                rootView.findViewById(R.id.inputChat).setVisibility(View.GONE);
+            }
+            inputForm = rootView.findViewById(R.id.inputChat);
             initUIComponents(rootView);
             return rootView;
         }

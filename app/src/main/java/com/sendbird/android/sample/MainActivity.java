@@ -42,7 +42,8 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences("app data", Context.MODE_PRIVATE);
-        userName = sharedPreferences.getString("role","") + " - " + sharedPreferences.getString("name", "");
+        String role = sharedPreferences.getString("role","").replace('_', ' ');
+        userName = role + " - " + sharedPreferences.getString("name", "");
         /**
          * Start GCM Service.
          */

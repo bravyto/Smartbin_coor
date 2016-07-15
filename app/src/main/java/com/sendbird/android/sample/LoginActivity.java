@@ -215,15 +215,30 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             //role: kepala_dinas, koor_kecamatan, kepala_tpa
-            if (status.equals("sukses") && role.equals("kepala_tpa")) {
+            if (status.equals("sukses")) {
                 SharedPreferences sharedPref = getSharedPreferences("app data", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("id", id);
-                editor.putString("role", "kepala_tpa");
                 editor.putString("name", name);
-                editor.commit();
-                Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(myIntent);
+                if (role.equals("kepala_tpa")) {
+                    editor.putString("role", "kepala_tpa");
+                    editor.commit();
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(myIntent);
+                } else if (role.equals("koor_kec")) {
+                    editor.putString("role", "koor_kec");
+                    editor.commit();
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(myIntent);
+                } else if (role.equals("dinas_k")) {
+                    editor.putString("role", "dinas_k");
+                    editor.commit();
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(myIntent);
+                } else {
+                    mEmailView.setError("This username or password is incorrect");
+                    mEmailView.requestFocus();
+                }
             } else {
                 mEmailView.setError("This username or password is incorrect");
                 mEmailView.requestFocus();

@@ -69,6 +69,8 @@ public class SendBirdMessagingChannelListActivity extends AppCompatActivity {
     private String mNickname;
     private String mGcmRegToken;
 
+    public static String user_role = "";
+
     private static final int REQUEST_SENDBIRD_MESSAGING_ACTIVITY = 200;
     private static final int REQUEST_SENDBIRD_USER_LIST_ACTIVITY = 300;
 
@@ -83,6 +85,7 @@ public class SendBirdMessagingChannelListActivity extends AppCompatActivity {
         args.putString("appKey", appKey);
         args.putString("uuid", uuid);
         args.putString("nickname", nickname);
+        user_role = nickname;
         return args;
     }
 

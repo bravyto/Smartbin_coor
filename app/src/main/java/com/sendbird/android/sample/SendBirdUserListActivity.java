@@ -2,6 +2,7 @@ package com.sendbird.android.sample;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,8 +10,10 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +51,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -251,6 +256,15 @@ public class SendBirdUserListActivity extends FragmentActivity {
                 mUserListQuery.next(new UserListQuery.UserListQueryResult() {
                     @Override
                     public void onResult(List<User> users) {
+                        ArrayList<Integer> remover = new ArrayList<Integer>();
+                        for (int i = 0; i < users.size(); i++){
+                            if (!SendBirdMessagingChannelListActivity.user_role.equals("dinas k") && users.get(i).getName().split(" - ")[0].equals("dinas k")) {
+                                remover.add(i);
+                            }
+                        }
+                        for (int i = 0; i < remover.size(); i++) {
+                            users.remove(remover.get(i) - i);
+                        }
                         mAdapter.addAll(users);
                         mAdapter.notifyDataSetChanged();
                     }
@@ -305,7 +319,6 @@ public class SendBirdUserListActivity extends FragmentActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 ViewHolder viewHolder;
-
                 if(convertView == null) {
                     viewHolder = new ViewHolder();
 
@@ -316,40 +329,39 @@ public class SendBirdUserListActivity extends FragmentActivity {
                     viewHolder.setView("chk_select", convertView.findViewById(R.id.chk_select));
                     viewHolder.setView("txt_status", convertView.findViewById(R.id.txt_status));
 
-
                     convertView.setTag(viewHolder);
                 }
 
                 final User item = getItem(position);
-                viewHolder = (ViewHolder) convertView.getTag();
-                displayUrlImage(viewHolder.getView("img_thumbnail", ImageView.class), item.getImageUrl());
-                viewHolder.getView("txt_name", TextView.class).setText(item.getName());
-                viewHolder.getView("chk_select", CheckBox.class).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    viewHolder = (ViewHolder) convertView.getTag();
+                    displayUrlImage(viewHolder.getView("img_thumbnail", ImageView.class), item.getImageUrl());
+                    viewHolder.getView("txt_name", TextView.class).setText(item.getName());
+                    viewHolder.getView("chk_select", CheckBox.class).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                        if(isChecked) {
-                            mSelectedUsers.add(item);
-                        } else {
-                            mSelectedUsers.remove(item);
-                        }
+                            if (isChecked) {
+                                mSelectedUsers.add(item);
+                            } else {
+                                mSelectedUsers.remove(item);
+                            }
 
-                        if (mHandler != null)  {
-                            mHandler.onUserSelected(mSelectedUsers);
+                            if (mHandler != null) {
+                                mHandler.onUserSelected(mSelectedUsers);
+                            }
                         }
-                    }
-                });
-                viewHolder.getView("chk_select", CheckBox.class).setChecked(mSelectedUsers.contains(item));
-                if(item.isOnline()) {
-                    viewHolder.getView("txt_status", TextView.class).setText("Online");
-                } else {
-                    if(item.getLastSeenAt() == 0) {
-                        // Undefined. Never seen.
-                        viewHolder.getView("txt_status", TextView.class).setText("");
+                    });
+                    viewHolder.getView("chk_select", CheckBox.class).setChecked(mSelectedUsers.contains(item));
+                    if (item.isOnline()) {
+                        viewHolder.getView("txt_status", TextView.class).setText("Online");
                     } else {
-                        viewHolder.getView("txt_status", TextView.class).setText(new SimpleDateFormat("dd/MMM/yyyy").format(new Date(item.getLastSeenAt())));
+                        if (item.getLastSeenAt() == 0) {
+                            // Undefined. Never seen.
+                            viewHolder.getView("txt_status", TextView.class).setText("");
+                        } else {
+                            viewHolder.getView("txt_status", TextView.class).setText(new SimpleDateFormat("dd/MMM/yyyy").format(new Date(item.getLastSeenAt())));
+                        }
                     }
-                }
                 return convertView;
             }
 
@@ -359,6 +371,7 @@ public class SendBirdUserListActivity extends FragmentActivity {
                 public void setView(String k, View v) {
                     holder.put(k, v);
                 }
+
 
                 public View getView(String k) {
                     return holder.get(k);
@@ -530,7 +543,7 @@ public class SendBirdUserListActivity extends FragmentActivity {
 
         @Override
         protected void onPreExecute() {
-            if(handler != null) {
+            if (handler != null) {
                 handler.onPreExecute();
             }
         }
