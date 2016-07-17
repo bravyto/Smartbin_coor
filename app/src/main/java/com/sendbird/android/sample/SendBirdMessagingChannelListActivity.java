@@ -85,7 +85,7 @@ public class SendBirdMessagingChannelListActivity extends AppCompatActivity {
         args.putString("appKey", appKey);
         args.putString("uuid", uuid);
         args.putString("nickname", nickname);
-        user_role = nickname;
+        user_role = nickname.split(" - ")[0];
         return args;
     }
 
@@ -115,6 +115,10 @@ public class SendBirdMessagingChannelListActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_SENDBIRD_USER_LIST_ACTIVITY);
             }
         });
+
+        if (user_role.equals("supir truk")) {
+            myFab.setVisibility(View.GONE);
+        }
 
         Toast.makeText(this, "Long press the channel to leave.", Toast.LENGTH_LONG).show();
     }

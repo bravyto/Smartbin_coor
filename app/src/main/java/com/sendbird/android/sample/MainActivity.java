@@ -50,7 +50,7 @@ public class MainActivity extends FragmentActivity {
         Intent intent = new Intent(this, RegistrationIntentService.class);
         startService(intent);
 
-        if (sharedPreferences.getString("role", "").equals("kepala_tpa"))
+        if (sharedPreferences.getString("role", "").equals("kepala_tpa") || sharedPreferences.getString("role", "").equals("supir_truk"))
             findViewById(R.id.btn_start_open_chat).setVisibility(View.GONE);
         else {
             findViewById(R.id.btn_start_open_chat).setOnClickListener(new View.OnClickListener() {

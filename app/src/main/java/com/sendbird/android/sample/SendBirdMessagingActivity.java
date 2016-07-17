@@ -483,7 +483,7 @@ public class SendBirdMessagingActivity extends FragmentActivity {
                 currentStatus = 0L;
             }
             SharedPreferences sharedPreferences = getSharedPreferences("app data", Context.MODE_PRIVATE);
-            if (sharedPreferences.getString("role","").equals("kepala_tpa") && member.getName().split(" - ")[0].equals("dinas"))
+            if ((sharedPreferences.getString("role","").equals("kepala_tpa") && member.getName().split(" - ")[0].equals("dinas")) || sharedPreferences.getString("role","").equals("supir_truk"))
                 SendBirdMessagingActivity.this.findViewById(R.id.inputChat).setVisibility(View.GONE);
             readStatus.put(member.getId(), Math.max(currentStatus, messagingChannel.getLastReadMillis(member.getId())));
         }

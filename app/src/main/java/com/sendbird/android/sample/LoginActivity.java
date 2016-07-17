@@ -235,7 +235,12 @@ public class LoginActivity extends AppCompatActivity {
                     editor.commit();
                     Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(myIntent);
-                } else {
+                } else if (role.equals("supir_truk")) {
+                    editor.putString("role", "supir_truk");
+                    editor.commit();
+                    Intent myIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(myIntent);
+                }  else {
                     mEmailView.setError("This username or password is incorrect");
                     mEmailView.requestFocus();
                 }
