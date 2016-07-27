@@ -18,5 +18,6 @@
         completions."
     </string>
     <string name="title_activity_tracking">Truck Tracking</string>
+    <string name="google_maps_key">AIzaSyDjkNXLI4j-k4ZhdSA3WkHxLUyXagm5aH8</string>
 
 </resources>
