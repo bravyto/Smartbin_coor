@@ -26,4 +26,10 @@
         <item name="colorControlNormal">#000000</item>
         <item name="colorControlActivated">#000000</item>
     </style>
+
+    <style name="MyEditTextTheme">
+        <item name="colorControlNormal">@android:color/black</item>
+        <item name="colorControlActivated">@android:color/black</item>
+        <item name="colorControlHighlight">@android:color/black</item>
+    </style>
 </resources>

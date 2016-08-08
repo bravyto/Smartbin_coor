@@ -40,49 +40,16 @@
             android:textColor="#ffffff"
             android:background="#824096"
             />
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/messaging_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical"
-        >
         <Button
-            android:id="@+id/btn_select_member"
-            android:layout_below="@+id/btn_start_messaging"
-            android:layout_marginTop="10dp"
+            android:id="@+id/btn_report"
             android:layout_width="wrap_content"
             android:minWidth="220dp"
             android:layout_height="wrap_content"
-            android:text="Start Messaging"
-            android:textColor="#ffffff"
-            android:background="#824096"
-            />
-
-        <Button
-            android:id="@+id/btn_start_messaging_list"
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:minWidth="220dp"
-            android:layout_height="wrap_content"
-            android:text="Messaging Channel List"
+            android:text="Report"
             android:textColor="#ffffff"
-            android:background="#824096"
-            />
-
-        <Button
-            android:id="@+id/btn_messaging_back"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:minWidth="220dp"
-            android:layout_height="wrap_content"
-            android:text="Back"
-            android:textColor="#ffffff"
-            android:background="#824096"
-            />
+            android:background="#824096" />
     </LinearLayout>
 
 </RelativeLayout>

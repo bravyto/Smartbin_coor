@@ -61,7 +61,7 @@ public class MainActivity extends FragmentActivity {
             });
         }
         findViewById(R.id.main_container).setVisibility(View.VISIBLE);
-        findViewById(R.id.messaging_container).setVisibility(View.GONE);
+        //findViewById(R.id.messaging_container).setVisibility(View.GONE);
         findViewById(R.id.btn_start_messaging).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,27 +71,35 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        findViewById(R.id.btn_messaging_back).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_report).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                findViewById(R.id.main_container).setVisibility(View.VISIBLE);
-                findViewById(R.id.messaging_container).setVisibility(View.GONE);
+                Intent intent = new Intent(MainActivity.this, ReportActivity.class);
+                startActivity(intent);
             }
         });
 
-        findViewById(R.id.btn_select_member).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startUserList();
-            }
-        });
+//        findViewById(R.id.btn_messaging_back).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                findViewById(R.id.main_container).setVisibility(View.VISIBLE);
+//                findViewById(R.id.messaging_container).setVisibility(View.GONE);
+//            }
+//        });
 
-        findViewById(R.id.btn_start_messaging_list).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startMessagingChannelList();
-            }
-        });
+//        findViewById(R.id.btn_select_member).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startUserList();
+//            }
+//        });
+//
+//        findViewById(R.id.btn_start_messaging_list).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startMessagingChannelList();
+//            }
+//        });
 
     }
 
